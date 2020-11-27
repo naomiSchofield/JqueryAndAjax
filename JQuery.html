@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>   
+</head>
+<body>
+    <h2 title="I'm a header" id = title1 class = titleClass>The title Attribute</h2>
+
+    <!--in html you can use the Data- to add an attribute of your own. -->
+
+    <h2 title="I'm a header" data-ImportantTitle = IAmATitle id = title2 class = titleClass>The title Attribute</h2>
+    <h2 title="I'm a header" id = title3 class = titleClass>The title Attribute</h2>
+    <h2 title="I'm a header" id = title4 class = titleClass>The title Attribute</h2>
+
+    <p title="I'm a tooltip">Mouse over this paragraph, to display the title attribute as a tooltip.</p>
+
+    <button id="myButton1" data-relatesTo = title1 class="ButtonClass" > This is a button </button>
+    <button id="myButton2" class="ButtonClass" data-relatesTo = title2> This is a button </button>
+    <button id="myButton3" class="ButtonClass" data-relatesTo = title3> This is a button </button>
+    <button id="myButton4" class="ButtonClass" data-relatesTo = title4> This is a button </button>
+</body>
+</html>
+
+<!--//Jquery code always goes inside a doc.ready function. -->
+
+$(document).ready(function(){
+   
+})
+
+<!--//or -->
+
+$(function(){
+
+})
+
+<!--//basic Jquery function - hides the element with the ID Title for 1 second or 1000 ms. -->
+
+$(function(){
+    $("#title").hide(1000)
+})
+
+<!--//the toggle function will switch the element between being shown and hidden - for 1 second - time is determinded by the amount in the parentheses. -->
+
+$(function(){
+    $("#title").toggle(1000).toggle(1000)
+})
+
+<!--//.css allows JQuery to change the CSS of particular Elements. You can select the elements using HTML tags, ID's or class name. -->
+
+$(document).ready(function({
+    $('h2').css({color:'red'})
+}))
+
+
+$(document).ready(function() {
+    $('h2').HTML{color:'red', font-weight:bold}} 
+)
+    <!--**//this won't work, because it is reading font-weight in JS which means font minus weight. To make this work in JQ you must use fontWeight or 'font-weight'.**// -->
+
+
+<!--// you can use the same set up but change CSS to HTML, which will allow you to edit the HTML element. -->
+
+$(document).ready(function() {
+    $('h2').HTML('my header')}
+)
+
+/<!--/You can even add new HTML elements using this method. -->
+
+$(document).ready(function(){
+        $('h2').HTML('my header <h3> my new header</h3>')
+})
+
+
+<!--//LISTENING TO THE PAGE-->
+
+<!--//this function tells us that when myButton1 is clicked the title1 should toggle (from visible to hidden and back)-->
+
+<!--//you can use the click feature to click on any element on the page and make a function fire. -->
+
+$(function(){
+    $('#myButton1').on('click', function(){
+        $('#title1').toggle();
+    })
+})
+
+<!-- JQuery events bind, blur, change, click, focus, hover, keydown, keyup, keypress, mousemove (there are many more - look here https://api.jquery.com/category/events/)-->
+
+<!--//Jquery allows you to look for an attribute. -->
+
+$('button[class=Button Class]')
+
+<!--//target more than one attribute at once 
+// Here the click event will fire on any attribute that has the ButtonClass. By using the 'this' key word, we can select the specific button that was clicked. It will then find the data-relatesTo attribute of the button that was clicked and alert us with it. -->
+
+<!--//THE THIS KEY WORD BELOW IS THE ELEMENT THAT THE EVENT WAS PERFORMED ON.   So in this case, the button that was clicked. -->
+
+$(function() {
+    $(.ButtonClass).on('click', function(){
+        var relatesToAttribute = $(this).attr('data-relatesTo');
+        alert(relatesToAttribute)
+    })
+})
+
+<!--//on line 111 we have taken the # (id identifyier) and added it to the result of the variable relatesToAttribute, we are using the new Id that creates to toggle. -->
+
+$(function() {
+    $(.ButtonClass).on('click', function(){
+        var relatesToAttribute = $(this).attr('data-relatesTo');
+        $('#'+ relatesToAttribute).toggle();
+    })
+})
+
+
+<!--DOM TRAVERSAL
+find the first and last and all li elements on the page. -->
+
+$('li')
+$('li').first 
+$('li').last 
+$('li').eq(0) <!--//gives first index of all li elements. -->
+$('li:first) <!-- //same as line 20 -->
+$('li:first).children <!--//finds all the elements that are direct first children of the first Li. -->
+$('li:first).siblings <!-- gives all the siblings of the first li element. siblings are all the elements that are the same level as the one in the selector. -->
+$('li').eq(0).parent <!--//the parent of the li element at index 0 -->
+$('li').eq(0).parent.parent <!--the parent of the li element at index 0's parent. -->
+$('li').first().next() <!--the li after the first one. -->
+
+$(function() {
+    $(.ButtonClass).on('click', function(){
+        $(this).next().hide()
+    })
+}) <!--//hides the element next to the element that is clicked. -->
+ 
+
+$(function() {
+    $(.ButtonClass).on('click', function(){
+        $(this).closest(.list).hide()
+    })
+}) <!--hides the closest list element to the element that was clicked.-->
+ 
+
+<!-- .is and .not are functions to find if something has a certain element or doesn't have a certain element. -->
+
+$(function() {
+    $(.ButtonClass).on('click', function(){
+        if ($(this).parent().is('.list')){
+            $(this).hide();
+        }
+    })
+}) 
+  
